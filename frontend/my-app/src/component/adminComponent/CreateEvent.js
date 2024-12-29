@@ -2,14 +2,26 @@ import React, { useState } from "react";
 
 export default function CreateEvent() {
   const [eventData, setEventData] = useState({
-    id: "", title: "", dateTime: "", duration: "", venueId: "", description: "",
-    presenter: "", ageLimit: "", price: "", remarks: "", saleDate: "",
-    submitDate: "", programTime: "", tagentUrl: "", url: ""
+    id: "",
+    title: "",
+    dateTime: "",
+    duration: "",
+    venueId: "",
+    description: "",
+    presenter: "",
+    ageLimit: "",
+    price: "",
+    remarks: "",
+    saleDate: "",
+    submitDate: "",
+    programTime: "",
+    tagentUrl: "",
+    url: "",
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setEventData(prevData => ({ ...prevData, [name]: value }));
+    setEventData((prevData) => ({ ...prevData, [name]: value }));
   };
 
   const handleSubmit = async (e) => {
@@ -43,11 +55,25 @@ export default function CreateEvent() {
           </div>
           <div className="form-group">
             <label htmlFor="dateTime">Date & Time</label>
-            <input type="datetime-local" id="dateTime" name="dateTime" value={eventData.dateTime} onChange={handleChange} required />
+            <input
+              type="datetime-local"
+              id="dateTime"
+              name="dateTime"
+              value={eventData.dateTime}
+              onChange={handleChange}
+              required
+            />
           </div>
           <div className="form-group">
             <label htmlFor="duration">Duration</label>
-            <input type="text" id="duration" name="duration" value={eventData.duration} onChange={handleChange} required />
+            <input
+              type="text"
+              id="duration"
+              name="duration"
+              value={eventData.duration}
+              onChange={handleChange}
+              required
+            />
           </div>
           <div className="form-group">
             <label htmlFor="venueId">Venue ID</label>
@@ -55,7 +81,14 @@ export default function CreateEvent() {
           </div>
           <div className="form-group">
             <label htmlFor="presenter">Presenter</label>
-            <input type="text" id="presenter" name="presenter" value={eventData.presenter} onChange={handleChange} required />
+            <input
+              type="text"
+              id="presenter"
+              name="presenter"
+              value={eventData.presenter}
+              onChange={handleChange}
+              required
+            />
           </div>
           <div className="form-group">
             <label htmlFor="ageLimit">Age Limit</label>
@@ -67,15 +100,33 @@ export default function CreateEvent() {
           </div>
           <div className="form-group">
             <label htmlFor="saleDate">Sale Date</label>
-            <input type="datetime-local" id="saleDate" name="saleDate" value={eventData.saleDate} onChange={handleChange} />
+            <input
+              type="datetime-local"
+              id="saleDate"
+              name="saleDate"
+              value={eventData.saleDate}
+              onChange={handleChange}
+            />
           </div>
           <div className="form-group">
             <label htmlFor="submitDate">Submit Date</label>
-            <input type="datetime-local" id="submitDate" name="submitDate" value={eventData.submitDate} onChange={handleChange} />
+            <input
+              type="datetime-local"
+              id="submitDate"
+              name="submitDate"
+              value={eventData.submitDate}
+              onChange={handleChange}
+            />
           </div>
           <div className="form-group">
             <label htmlFor="programTime">Program Time</label>
-            <input type="text" id="programTime" name="programTime" value={eventData.programTime} onChange={handleChange} />
+            <input
+              type="text"
+              id="programTime"
+              name="programTime"
+              value={eventData.programTime}
+              onChange={handleChange}
+            />
           </div>
           <div className="form-group">
             <label htmlFor="tagentUrl">Tagent URL</label>
@@ -88,18 +139,26 @@ export default function CreateEvent() {
         </div>
         <div className="form-group full-width">
           <label htmlFor="description">Description</label>
-          <textarea id="description" name="description" value={eventData.description} onChange={handleChange} required />
+          <textarea
+            id="description"
+            name="description"
+            value={eventData.description}
+            onChange={handleChange}
+            required
+          />
         </div>
         <div className="form-group full-width">
           <label htmlFor="remarks">Remarks</label>
           <textarea id="remarks" name="remarks" value={eventData.remarks} onChange={handleChange} />
         </div>
-        <button type="submit" className="submit-button">Create Event</button>
+        <button type="submit" className="submit-button">
+          Create Event
+        </button>
       </form>
 
       <style jsx>{`
         .create-event-container {
-          max-width: 1000px;
+          max-width: 1200px;
           margin: 0 auto;
           padding: 1.5rem;
           background-color: #f8f9fa;
@@ -119,7 +178,7 @@ export default function CreateEvent() {
         }
         .form-grid {
           display: grid;
-          grid-template-columns: repeat(3, 1fr);
+          grid-template-columns: repeat(4, 1fr);
           gap: 1rem;
         }
         .form-group {

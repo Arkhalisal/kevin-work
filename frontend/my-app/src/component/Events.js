@@ -1,11 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCalendar,
-  faMapMarkerAlt,
-  faUsers,
-  faHeart,
-} from "@fortawesome/free-solid-svg-icons";
+import { faCalendar, faMapMarkerAlt, faUsers, faHeart } from "@fortawesome/free-solid-svg-icons";
 import { useEventStore } from "../customHook/useEventStore";
 
 export default function Events() {
@@ -18,9 +13,7 @@ export default function Events() {
   const observer = useRef();
 
   useEffect(() => {
-    const tenLocationData = locationData
-      .filter((location) => location.count > 3 && location.latitude)
-      .slice(0, 10);
+    const tenLocationData = locationData.filter((location) => location.count > 3 && location.latitude);
     const filteredEventData = eventData.filter((event) =>
       tenLocationData.map((location) => location.id).includes(event.venueId)
     );
@@ -91,22 +84,14 @@ export default function Events() {
               <span className="event-id">ID: {event.id}</span>
               <div className="like-section">
                 <span className="like-count">
-                  {Number(event.like) + likeStatus[event.id]?.count ||
-                    event.like ||
-                    0}
+                  {Number(event.like) + likeStatus[event.id]?.count || event.like || 0}
                 </span>
-                <button
-                  className="like-button"
-                  onClick={() => handleLike(event.id)}
-                >
+                <button className="like-button" onClick={() => handleLike(event.id)}>
                   <FontAwesomeIcon icon={faHeart} />
                 </button>
               </div>
             </div>
-            <h2
-              className="event-title"
-              onClick={() => (window.location.href = `/events/${event.id}`)}
-            >
+            <h2 className="event-title" onClick={() => (window.location.href = `/events/${event.id}`)}>
               {event.title}
             </h2>
             <div className="event-details">
@@ -116,7 +101,7 @@ export default function Events() {
               </div>
               <div className="event-detail">
                 <FontAwesomeIcon icon={faUsers} className="icon" />
-                <span>{event.presenter}</span>
+                <span>{event.presenter.split("by")[1]}</span>
               </div>
               <div className="event-detail">
                 <FontAwesomeIcon icon={faMapMarkerAlt} className="icon" />
@@ -138,7 +123,6 @@ export default function Events() {
           max-width: 1600px;
           margin: 0 auto;
           padding: 10px;
-          transition: background-color 0.3s ease;
           border-radius: 10px;
         }
 
@@ -247,6 +231,8 @@ export default function Events() {
         .icon {
           margin-right: 10px;
           color: #3498db;
+          width: 20px;
+          height: 18px;
         }
 
         .loading {

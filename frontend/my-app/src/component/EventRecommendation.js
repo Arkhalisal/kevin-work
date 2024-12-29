@@ -26,15 +26,11 @@ const EventRecommendations = () => {
         const eventPrice = parseInt(event.price.replace("$", ""));
 
         return (
-          (!userPreferences.ageGroup ||
-            event.ageLimit.includes(userPreferences.ageGroup)) &&
+          (!userPreferences.ageGroup || event.ageLimit.includes(userPreferences.ageGroup)) &&
           (!userPreferences.preferredDate || eventDate >= preferredDate) &&
-          (!userPreferences.maxPrice ||
-            eventPrice <= parseInt(userPreferences.maxPrice)) &&
+          (!userPreferences.maxPrice || eventPrice <= parseInt(userPreferences.maxPrice)) &&
           (!userPreferences.interests ||
-            event.description
-              .toLowerCase()
-              .includes(userPreferences.interests.toLowerCase()))
+            event.description.toLowerCase().includes(userPreferences.interests.toLowerCase()))
         );
       })
       .slice(0, 3);
@@ -44,16 +40,11 @@ const EventRecommendations = () => {
 
   return (
     <div className="event-recommendations">
-      <h2 style={{fontSize: "2.5rem"}}>Find Event Recommendations</h2>
+      <h2 style={{ fontSize: "2.5rem", textAlign: "center" }}>Find Event Recommendations</h2>
       <form onSubmit={handleSubmit} className="preferences-form">
         <div className="form-group">
           <label htmlFor="ageGroup">Age Group:</label>
-          <select
-            id="ageGroup"
-            name="ageGroup"
-            value={userPreferences.ageGroup}
-            onChange={handleInputChange}
-          >
+          <select id="ageGroup" name="ageGroup" value={userPreferences.ageGroup} onChange={handleInputChange}>
             <option value="">Any</option>
             <option value="18">18+</option>
           </select>
@@ -99,21 +90,15 @@ const EventRecommendations = () => {
               <div key={event.id} className="event-item">
                 <div>{event.id}</div>
                 <h4 style={{ marginBottom: "5px" }}>{event.title}</h4>
-                <p style={{ marginBottom: "5px" }}>
-                  Date & Time: {event.dateTime}
-                </p>
+                <p style={{ marginBottom: "5px" }}>Date & Time: {event.dateTime}</p>
                 <p style={{ marginBottom: "5px" }}>Venue: {event.venue}</p>
-                <p style={{ marginBottom: "5px" }}>
-                  Price: {event.price || "none"}
-                </p>
+                <p style={{ marginBottom: "5px" }}>Price: {event.price || "none"}</p>
                 <p>Age Limit: {event.ageLimit || "none"}</p>
               </div>
             ))}
           </div>
         ) : (
-          <p style={{ color: "black" }}>
-            No recommendations found. Try adjusting your preferences.
-          </p>
+          <p style={{ color: "black" }}>No recommendations found. Try adjusting your preferences.</p>
         )}
       </div>
 

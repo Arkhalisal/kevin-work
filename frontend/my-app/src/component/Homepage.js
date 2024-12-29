@@ -11,8 +11,7 @@ import EventRecommendations from "./EventRecommendation";
 import { useEventStore } from "../customHook/useEventStore";
 
 function Homepage({ user, setUser }) {
-  const { setEventData, setLocationData, setLightMode, lightMode } =
-    useEventStore();
+  const { setEventData, setLocationData, setLightMode, lightMode } = useEventStore();
 
   useEffect(() => {
     if (lightMode) {
@@ -27,14 +26,10 @@ function Homepage({ user, setUser }) {
       const response = await fetch("http://localhost:5000/getEventInfo");
       const data = await response.json();
 
-      const venueResponse = await fetch(
-        "http://localhost:5000/getEventVenueInfo"
-      );
+      const venueResponse = await fetch("http://localhost:5000/getEventVenueInfo");
       const venueData = await venueResponse.json();
       const combinedData = data.map((event) => {
-        const venue = venueData.find(
-          (v) => Number(v.id) === Number(event.venueId)
-        );
+        const venue = venueData.find((v) => Number(v.id) === Number(event.venueId));
 
         return {
           ...event,
@@ -47,8 +42,7 @@ function Homepage({ user, setUser }) {
       const venueEventCounts = venueData.map((venue) => {
         return {
           ...venue,
-          count: combinedData.filter((event) => event.venue === venue.name)
-            .length,
+          count: combinedData.filter((event) => event.venue === venue.name).length,
         };
       });
 
@@ -66,29 +60,44 @@ function Homepage({ user, setUser }) {
   return (
     <Router>
       <div className="app-container">
-        <nav className="navbar">
+        <nav className="navbar" style={{ backgroundColor: lightMode ? "white" : "#2c3e50" }}>
           <div className="navbar-left">
-            <button
-              onClick={() => setLightMode(!lightMode)}
-              className="theme-toggle"
-            >
+            <button onClick={() => setLightMode(!lightMode)} className="theme-toggle">
               {lightMode ? "🌙" : "☀️"}
             </button>
           </div>
           <div className="navbar-center">
-            <Link to="/">Home</Link>
-            <Link to="/events">Events</Link>
-            <Link to="/locations">Locations</Link>
-            <Link to="/map">Map</Link>
-            <Link to="/favorites">Favorites</Link>
-            <Link to="/recommendations">Recommendations</Link>
-            {user?.isAdmin && <Link to="/admin">Admin</Link>}
+            <Link to="/" style={{ color: lightMode ? "black" : "white" }}>
+              Home
+            </Link>
+            <Link to="/events" style={{ color: lightMode ? "black" : "white" }}>
+              Events
+            </Link>
+            <Link to="/locations" style={{ color: lightMode ? "black" : "white" }}>
+              Locations
+            </Link>
+            <Link to="/map" style={{ color: lightMode ? "black" : "white" }}>
+              Map
+            </Link>
+            <Link to="/favorites" style={{ color: lightMode ? "black" : "white" }}>
+              Favorites
+            </Link>
+            <Link to="/recommendations" style={{ color: lightMode ? "black" : "white" }}>
+              Recommendations
+            </Link>
+            {user?.isAdmin && (
+              <Link to="/admin" style={{ color: lightMode ? "black" : "white" }}>
+                Admin
+              </Link>
+            )}
           </div>
           <div className="navbar-right">
-            <Link to="/" onClick={handleLogout}>
+            <Link to="/" onClick={handleLogout} style={{ color: lightMode ? "black" : "white" }}>
               Log Out
             </Link>
-            <span className="username">Username: {user.username}</span>
+            <span className="username" style={{ color: lightMode ? "black" : "white" }}>
+              Username: {user.username}
+            </span>
           </div>
         </nav>
 
@@ -120,11 +129,14 @@ function Homepage({ user, setUser }) {
           padding: 1rem;
           background-color: #2c3e50;
           color: white;
+          height: 4.5rem;
+          transition: background-color 0.3s ease;
         }
 
         .navbar-left,
         .navbar-right {
           flex: 1;
+          text-align: center;
         }
 
         .navbar-center {
@@ -193,7 +205,9 @@ const Home = ({ user }) => {
         body: JSON.stringify({ username: user.username }),
       });
       const data = await response.json();
-      setBookedEvents(data.bookedEvents);
+      if (data.bookedEvents) {
+        setBookedEvents(data.bookedEvents);
+      }
     }
     fetchBookedEvents();
   }, [user.username]);
@@ -207,9 +221,7 @@ const Home = ({ user }) => {
         },
         body: JSON.stringify({ username: user.username, eventId }),
       });
-      setBookedEvents((prevBookedEvents) =>
-        prevBookedEvents.filter((id) => id !== eventId)
-      );
+      setBookedEvents((prevBookedEvents) => prevBookedEvents.filter((id) => id !== eventId));
     } catch (error) {
       console.error("Error during unbooking:", error);
     }
@@ -217,24 +229,18 @@ const Home = ({ user }) => {
 
   return (
     <div className="home-container">
-      <h1 style={{ color: lightMode ? "black" : "white" }}>
-        Welcome, {user?.username}!
-      </h1>
+      <h1 style={{ color: lightMode ? "black" : "white" }}>Welcome, {user?.username}!</h1>
       {user?.isAdmin ? (
         <div className="user-status admin">You are logged in as an admin.</div>
       ) : (
         <div className="user-status">You are logged in as a regular user.</div>
       )}
+      <h2 style={{ color: lightMode ? "black" : "white", marginBottom: "1rem" }}>Booked Events:</h2>
       <div className="booked-events">
-        <h2 style={{ color: lightMode ? "black" : "white" }}>Booked Events:</h2>
-        {bookedEvents.map(
+        {bookedEvents?.map(
           (event) =>
             eventData.find((e) => e.id === event) && (
-              <div
-                key={event}
-                className="event-card"
-                style={{ position: "relative" }}
-              >
+              <div key={event} className="event-card" style={{ position: "relative" }}>
                 <div
                   style={{
                     position: "absolute",
@@ -259,6 +265,7 @@ const Home = ({ user }) => {
         .home-container {
           max-width: 800px;
           margin: 0 auto;
+          text-align: center;
         }
 
         h1 {
@@ -278,7 +285,10 @@ const Home = ({ user }) => {
           color: white;
         }
 
-        .booked-events h2 {
+        .booked-events {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: space-around;
           color: #2c3e50;
           margin-bottom: 1rem;
         }

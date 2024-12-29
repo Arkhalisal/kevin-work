@@ -26,9 +26,7 @@ export default function Favorites() {
 
   useEffect(() => {
     const favoriteLocations = favorites.map((id) => {
-      return locationData.find(
-        (location) => Number(location.id) === Number(id)
-      );
+      return locationData.find((location) => Number(location.id) === Number(id));
     });
     setFavoriteLocations(favoriteLocations);
   }, [favorites, locationData]);
@@ -49,7 +47,7 @@ export default function Favorites() {
 
   return (
     <div>
-      <h1>Favorites Location</h1>
+      <h1 style={{ textAlign: "center" }}>Favorites Location</h1>
       <div className="locations-table-container">
         <div className="overflow-x-auto">
           <table className="locations-table">
@@ -83,9 +81,7 @@ export default function Favorites() {
         </div>
       </div>
 
-      {favoriteLocations.length === 0 && (
-        <p className="locations-no-results">No locations favorited.</p>
-      )}
+      {favoriteLocations.length === 0 && <p className="locations-no-results">No locations favorited.</p>}
     </div>
   );
 }

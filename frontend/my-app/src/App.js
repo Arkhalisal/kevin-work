@@ -31,7 +31,6 @@ function App() {
   return (
     <div className="App">
       <header
-        className="App-header"
         style={{
           backgroundColor: lightMode ? "#F2F2F2" : "#282c34",
           color: lightMode ? "black" : "white",

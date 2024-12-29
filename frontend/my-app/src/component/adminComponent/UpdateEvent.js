@@ -91,26 +91,13 @@ export default function UpdateEvent() {
         <div className="form-grid">
           {Object.entries(eventData).map(([key, value]) => (
             <div key={key} className="form-group">
-              <label htmlFor={key}>
-                {key.charAt(0).toUpperCase() +
-                  key.slice(1).replace(/([A-Z])/g, " $1")}
-              </label>
+              <label htmlFor={key}>{key.charAt(0).toUpperCase() + key.slice(1).replace(/([A-Z])/g, " $1")}</label>
               {key === "description" || key === "remarks" ? (
-                <textarea
-                  id={key}
-                  name={key}
-                  value={value}
-                  onChange={handleChange}
-                  required
-                />
+                <textarea id={key} name={key} value={value} onChange={handleChange} required />
               ) : (
                 <input
                   type={
-                    key.includes("Date") || key === "dateTime"
-                      ? "datetime-local"
-                      : key === "price"
-                      ? "number"
-                      : "text"
+                    key.includes("Date") || key === "dateTime" ? "datetime-local" : key === "price" ? "number" : "text"
                   }
                   id={key}
                   name={key}
@@ -129,7 +116,7 @@ export default function UpdateEvent() {
 
       <style jsx>{`
         .update-event-container {
-          max-width: 1000px;
+          max-width: 1200px;
           margin: 0 auto;
           padding: 1.5rem;
           background-color: #f8f9fa;
@@ -175,7 +162,7 @@ export default function UpdateEvent() {
         }
         .form-grid {
           display: grid;
-          grid-template-columns: repeat(3, 1fr);
+          grid-template-columns: repeat(4, 1fr);
           gap: 1rem;
         }
         .form-group {
